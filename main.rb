@@ -1,7 +1,9 @@
 require_relative 'lib/linked_list'
 require_relative 'lib/hash_map_chained'
+require_relative 'lib/hash_map_lp'
+require_relative 'lib/hash_map_qp'
 
-test = test = HashMapChained.new
+test = HashMapQp.new
 puts test.entries
 test.set('apple', 'red')
 test.set('banana', 'yellow')
@@ -16,13 +18,15 @@ test.set('jacket', 'blue')
 test.set('kite', 'pink')
 test.set('lion', 'golden')
 
-# puts test.entries
-# puts test.length
-test.set('kite','blue')
-# puts test.entries
 test.set('moon', 'silver')
 test.set('chair','black')
 test.set('table', 'black')
 puts test.entries
 puts test.length
-puts "-----"
+puts test.get('moon')
+puts test.remove('chair')
+puts test.entries
+puts test.length
+puts test.keys
+puts test.values
+puts test

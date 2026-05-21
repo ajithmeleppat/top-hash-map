@@ -1,5 +1,5 @@
-# HashMap implementation using linear probing
-class HashMapLp
+# HashMap implementation using quadratic probing
+class HashMapQp
   def initialize
     @load_factor = 0.75
     @capacity = 16
@@ -23,11 +23,13 @@ class HashMapLp
     if self.has?(key)
       @bucket[get_index(key)][:value] = value
     else
-      hash_code = hash(key)
-      until @bucket[hash_code].nil?
-        hash_code +=1
+      hash_code = new_hash =  hash(key)
+      qp_index = 0
+      until @bucket[new_hash].nil?
+        qp_index += 1
+        new_hash = hash_code + qp_index ** 2
       end
-      @bucket[hash_code] = {key: key, value: value}
+      @bucket[new_hash] = {key: key, value: value}
     end
     if self.length > @capacity * @load_factor
         @capacity *= 2
