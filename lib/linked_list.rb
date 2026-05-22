@@ -143,6 +143,17 @@ class LinkedList
     "[#{removed.key}, #{removed.value}]"
   end
 
+  def to_array
+    node = @head
+    array = []
+    until node.nil?
+      hash = Hash.new
+      hash = {key: node.key, value: node.value}
+      array << hash
+      node = node.next_node
+    end
+    array
+  end
   private
 
   def node_at(index)

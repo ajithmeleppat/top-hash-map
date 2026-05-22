@@ -4,6 +4,7 @@ class HashMap
     @load_factor = 0.75
     @capacity = 16
     @bucket = Array.new(@capacity)
+    @threshold = @load_factor * @capacity
   end
 
   def clear
@@ -64,4 +65,19 @@ class HashMap
     self.entries
   end
 
+  private
+
+  def resize
+    @capacity *= 2
+    @threshold = @load_factor * @capacity
+    @bucket = Array.new(@threshold)
+  end
+
+  def resize_redistribute
+    old = @bucket.compact
+    resize
+    old.each do |item|
+      set(item[:key],item[:value])
+    end
+  end
 end

@@ -14,9 +14,9 @@ class HashMapChained < HashMap
       @bucket[hash_code] = LinkedList.new() if @bucket[hash_code].nil?  
       @bucket[hash_code].append(key, value)  
     end
-    if self.length > @load_factor * @capacity
-      @capacity *= 2 
-      puts "capacity increased"
+    if self.length > @threshold
+      puts key
+      resize_redistribute
     end
   end 
 
@@ -51,5 +51,14 @@ class HashMapChained < HashMap
 
   def entries
     @bucket.compact.map { |item| item.to_s }.to_s
+  end
+
+  def resize_redistribute
+    old = @bucket.compact
+    resize
+    old.compact.each do |list|
+      kv_pairs = list.to_array
+      kv_pairs.each { |item| set(item[:key],item[:value])}
+    end
   end
 end

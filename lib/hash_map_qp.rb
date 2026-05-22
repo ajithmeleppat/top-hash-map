@@ -18,9 +18,8 @@ class HashMapQp < HashMap
       end
       @bucket[new_hash] = {key: key, value: value}
     end
-    if self.length > @capacity * @load_factor
-        @capacity *= 2
-        puts "capacity increased to #{@capacity}"
+    if self.length > @threshold
+      resize_redistribute
     end
   end 
 end
